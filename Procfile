@@ -1,1 +1,1 @@
-web: gunicorn main:app --log-file=-
+web: sudo apt install gunicorn && gunicorn main:app --log-file=-
