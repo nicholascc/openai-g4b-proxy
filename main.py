@@ -22,11 +22,7 @@ lock = Lock()
 
 def load_data():
     global data
-    try:
-        with open("data.json") as f:
-            data = json.load(f)
-    except FileNotFoundError:
-        data = {"api_keys": [], "usage": []}
+    data = json.load(getenv("DATA_JSON"))
 
 load_data()
 
@@ -49,9 +45,6 @@ def handle_request():
     if len(matching_keys) == 0:
         return jsonify({"error": "Invalid API key"}), 401
     data["usage"].append({"name": matching_keys[0]["name"], "time": time.time()})
-
-    with open("data.json", "w") as f:
-        json.dump(data, f)
     
     params["model"] = "gpt-4-base"
 
@@ -152,6 +145,3 @@ try:
     
     else:
         Thread(target=handle_pending_requests, daemon=True).start()
-finally:
-    with open("data.json", "w") as f:
-        json.dump(data, f)
