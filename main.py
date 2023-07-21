@@ -145,3 +145,5 @@ try:
     
     else:
         Thread(target=handle_pending_requests, daemon=True).start()
+finally:
+    pass
