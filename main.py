@@ -22,7 +22,7 @@ lock = Lock()
 
 def load_data():
     global data
-    data = json.load(getenv("DATA_JSON"))
+    data = json.loads(getenv("DATA_JSON"))
 
 load_data()
 
